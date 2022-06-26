@@ -1,3 +1,8 @@
+//Student Name: Zhouxuan He
+//Student Id: 301120369
+//program: COMP229 sec.003
+//Web App: Car Website
+
 // Do not expose your credentials in your code.
 let atlasDB = "mongodb+srv://HinsHo:comp229@car-midterm.akhcf.mongodb.net/?retryWrites=true&w=majority";
 

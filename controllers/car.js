@@ -1,3 +1,8 @@
+//Student Name: Zhouxuan He
+//Student Id: 301120369
+//program: COMP229 sec.003
+//Web App: Car Website
+
 // create a reference to the model
 let CarModel = require('../models/car');
 
@@ -63,8 +68,7 @@ module.exports.displayAddPage = (req, res, next) => {
             "price": null,
         },
         userName: req.user ? req.user.username : ''
-    })
-    // ADD YOUR CODE HERE        
+    })      
 
 }
 
@@ -120,7 +124,6 @@ module.exports.displayEditPage = (req, res, next) => {
             })
         }
     });
-    // ADD YOUR CODE HERE
 
 }
 
@@ -141,7 +144,7 @@ module.exports.processEditPage = (req, res, next) => {
         "color": req.body.color,
         "price": req.body.price
     };
-    //Update by id
+    //Update by id on mongoDB
     CarModel.collection.updateOne({_id: require("mongodb").ObjectId(id)}, {$set:thisCar}, {upsert: false});
     
     //Return to details view
@@ -150,7 +153,6 @@ module.exports.processEditPage = (req, res, next) => {
         car: thisCar,
         userName: req.user ? req.user.username : ''
     });  
-    // ADD YOUR CODE HERE
     
 }
 
@@ -179,6 +181,5 @@ module.exports.performDelete = (req, res, next) => {
             })            
         }
     });
-    // ADD YOUR CODE HERE
 
 }

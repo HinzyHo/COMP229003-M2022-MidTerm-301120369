@@ -1,3 +1,8 @@
+//Student Name: Zhouxuan He
+//Student Id: 301120369
+//program: COMP229 sec.003
+//Web App: Car Website
+
 var express = require('express');
 const passport = require('../config/passport');
 var router = express.Router();
@@ -7,13 +12,13 @@ let carController = require('../controllers/car');
 // Helper function for guard purposes
 function requireAuth(req, res, next)
 {
+    // check if the user is logged in   
     //if user is autherticated, run next(); if not, redirect user to sign in page
     if(!req.isAuthenticated()){
         req.session.url = req.originalUrl;
         return res.redirect("/users/signin");
     }
-    next();
-    // check if the user is logged in      
+    next();   
 
 }
 
@@ -23,6 +28,7 @@ router.get('/list', carController.carList);
 // Route for Details
 router.get('/details/:id', carController.details);
 
+//check authetication when accessing edit/add/delete page
 // Routers for edit
 router.get('/edit/:id', requireAuth, carController.displayEditPage);
 router.post('/edit/:id', requireAuth, carController.processEditPage);

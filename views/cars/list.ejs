@@ -1,3 +1,10 @@
+<!-- Student Name: Zhouxuan He
+    Student Id: 301120369
+    program: COMP229 sec.003
+    Web App: Car Website 
+-->
+
+
 <%- include ../partials/header.ejs %>
 
   <!-- Main Content -->
@@ -6,6 +13,7 @@
         <h1><%= title %></h1>
         <br>
         <div>
+            <!-- Fix Button -->  
             <!-- 1.a) Fix add button -->
             <a href="/cars/add" class="btn btn-primary align-self-end" role="button">
                 <i class="fas fa-plus-circle"></i> 
@@ -39,7 +47,8 @@
                         <td class="text-center"><%= CarsList[i].doors %></td>
                         <td class="text-center"><%= CarsList[i].seats %></td>
                         <td class="text-center"><%= CarsList[i].color %></td>
-                        <td class="text-center"><%= CarsList[i].price %></td>                        
+                        <td class="text-center"><%= CarsList[i].price %></td>
+                        <!-- Fix Button -->                        
                         <td class="text-center">
                             <a href="/cars/details/<%= CarsList[i]._id %>" class="btn btn-success btn-sm"> 
                             <i class="fas fa-info"></i> </a>
