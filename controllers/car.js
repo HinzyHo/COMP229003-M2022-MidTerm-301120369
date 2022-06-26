@@ -2,6 +2,7 @@
 let CarModel = require('../models/car');
 
 // Gets all cars from the Database and renders the page to list them all.
+// LIST PAGE
 module.exports.carList = function(req, res, next) {  
     CarModel.find((err, carsList) => {
         //console.log(carList);
@@ -22,6 +23,7 @@ module.exports.carList = function(req, res, next) {
 
 
 // Gets a car by id and renders the details page.
+// DETAILS PAGE
 module.exports.details = (req, res, next) => {
     
     let id = req.params.id;
@@ -37,14 +39,15 @@ module.exports.details = (req, res, next) => {
             //show the edit view
             res.render('cars/details', {
                 title: 'Car Details', 
-                car: carToShow
+                car: carToShow,
+                userName: req.user ? req.user.username : ''
             })
         }
     });
 }
 
 // Renders the Add form using the add_edit.ejs template
-// 2.a)
+// 2.a) ADD PAGE
 module.exports.displayAddPage = (req, res, next) => {
     
     res.render('cars/add_edit', {
@@ -58,15 +61,17 @@ module.exports.displayAddPage = (req, res, next) => {
             "seats": null,
             "color": "",
             "price": null,
-        }
+        },
+        userName: req.user ? req.user.username : ''
     })
     // ADD YOUR CODE HERE        
 
 }
 
 // Processes the data submitted from the Add form to create a new car
+// ADDED THEN RETURN TO DETAIL PAGE
 module.exports.processAddPage = (req, res, next) => {
-    //Object of details of new Added book
+    //Object of details of new Added car
     let thisCar = {
         "make": req.body.make,
         "model": req.body.model,
@@ -84,20 +89,21 @@ module.exports.processAddPage = (req, res, next) => {
         else console.log(doc);
     })
 
-    //Return to Book Details Page
+    //Return to Car Details Page
     res.render('cars/details', {
     title: 'Car Added', 
-    car: thisCar
+    car: thisCar,
+    userName: req.user ? req.user.username : ''
 });
-    // ADD YOUR CODE HERE
 
 }
 
 // Gets a car by id and renders the Edit form using the add_edit.ejs template
 //2.c)
+// EDIT PAGE
 module.exports.displayEditPage = (req, res, next) => {
     let id = req.params.id;
-    //Find detials of current book by id
+    //Find detials of current car by id
     CarModel.findById(id, (err, carToShow) => {
         if(err)
         {
@@ -109,7 +115,8 @@ module.exports.displayEditPage = (req, res, next) => {
             //show the edit view
             res.render('cars/add_edit', {
                 title: 'Edit Car', 
-                car: carToShow
+                car: carToShow,
+                userName: req.user ? req.user.username : ''
             })
         }
     });
@@ -118,7 +125,8 @@ module.exports.displayEditPage = (req, res, next) => {
 }
 
 // Processes the data submitted from the Edit form to update a car
-//2.d)
+// 2.d)
+// EDITED THEN RETURN TO DETAIL PAGE
 module.exports.processEditPage = (req, res, next) => {
     //get car id
     let id = req.params.id;
@@ -139,7 +147,8 @@ module.exports.processEditPage = (req, res, next) => {
     //Return to details view
     res.render('cars/details', {
         title: 'Car Edited', 
-        car: thisCar
+        car: thisCar,
+        userName: req.user ? req.user.username : ''
     });  
     // ADD YOUR CODE HERE
     
@@ -147,13 +156,14 @@ module.exports.processEditPage = (req, res, next) => {
 
 // Deletes a car based on its id.
 // 2.e)
+// DETELE THEN RETURN TO LIST PAGE
 module.exports.performDelete = (req, res, next) => {
     let id = req.params.id;
 
     //delete by id
     CarModel.collection.deleteOne({_id: require("mongodb").ObjectId(id)});
 
-    //Return to Book List Page
+    //Return to Car List Page
     CarModel.find((err, carsList) => {
         // console.log(carsList);
         if(err)
@@ -164,7 +174,8 @@ module.exports.performDelete = (req, res, next) => {
         {
             res.render('cars/list', {
                 title: 'Car List', 
-                car: carsList
+                CarsList: carsList,
+                userName: req.user ? req.user.username : ''
             })            
         }
     });
